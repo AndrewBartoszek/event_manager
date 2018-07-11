@@ -44,6 +44,14 @@ return [
     |
     */
 
+    /*
+        Generowanie klucza prywatnego RS256 na windowsie
+        openssl genrsa -passout pass Twoje_Haslo -out private.pem -aes256 4096
+
+        Generowanie klucza publicznego RS256 na windowsie
+        openssl rsa -passin pass: Twoje_Haslo -pubout -in private.pem -out public.pem
+    */
+
     'keys' => [
 
         /*
@@ -57,7 +65,7 @@ return [
         |
         */
 
-        'public' => env('JWT_PUBLIC_KEY'),
+        'public' => file_get_contents(storage_path(env('JWT_PUBLIC_KEY'))),
 
         /*
         |--------------------------------------------------------------------------
@@ -70,7 +78,7 @@ return [
         |
         */
 
-        'private' => env('JWT_PRIVATE_KEY'),
+        'private' => file_get_contents(storage_path(env('JWT_PRIVATE_KEY'))),
 
         /*
         |--------------------------------------------------------------------------
